@@ -12,7 +12,7 @@ namespace Git.Core.Commands
         //get local branch
         public static string CreateSSHKey(string szComInfo)
         {
-            string szExeCmd = string.Format("-t rsa -C \"{0}\" -N \"@nhn.com\" -P \"@nhn.com\" -f \"{1}\"", szComInfo, szComInfo);
+            string szExeCmd = string.Format("-t rsa -C \"{0}\" -N \"\" -P \"\" -f \"{1}\"", szComInfo, szComInfo);
             int iReturnCode = 1;
             string szInfo = CGitSourceConfig.m_objGitSrcModule.RunCommonCmd(@"ssh-keygen", szExeCmd, out iReturnCode);
             if (String.IsNullOrEmpty(szInfo) || szInfo.Contains("failed") || iReturnCode != 0)

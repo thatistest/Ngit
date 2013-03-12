@@ -114,17 +114,23 @@ namespace Git.UI
                 Directory.CreateDirectory(szSSHDir);
             }
 
-            string szTargetFile1=szSSHDir+"\\"+ m_txUsrName.Text;
-            string szTargetFile2=szSSHDir+"\\"+ m_txUsrName.Text +@".pub";
+            string _szTargetDir=szSSHDir+"\\"+ m_txUsrName.Text;
+            if (Directory.Exists(_szTargetDir)==false)
+            {
+                Directory.CreateDirectory(_szTargetDir);
+            }
+
+            string szTargetFile1 = _szTargetDir + "\\" + @"id_rsa";
+            string szTargetFile2 = _szTargetDir + "\\" +  @"id_rsa.pub";
             if(File.Exists(szTargetFile1)||File.Exists(szTargetFile2))
             {
                 MessageBox.Show(this, "The required SSH key has existed", "Warning");
                 return;            
             }
 
-            
 
-            string szRes = _objGitMgr._objGitMgrCore.CreateSshKey(szSSHDir,m_txUsrName.Text);
+
+            string szRes = _objGitMgr._objGitMgrCore.CreateSshKey(szSSHDir,m_txUsrName.Text+@"\id_rsa");
             if (string.IsNullOrEmpty(szRes)==false)
             {
                 MessageBox.Show(this, "Successful: Create SSH Key", "Success");
